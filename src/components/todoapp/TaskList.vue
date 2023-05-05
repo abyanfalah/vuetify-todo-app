@@ -1,8 +1,9 @@
 <script setup>
 import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
-import todoAppModules from '@/services/todoappService';
+import todoappService from '@/services/todoappService';
 import TaskgroupColorPickerVue from './TaskgroupColorPicker.vue';
 import { useTodoappStore } from '@/stores/TodoappStore';
+import { isDarkColor } from 'is-dark-color/dist/isDarkColor';
 
 const store = useTodoappStore();
 const taskInput = ref("");
@@ -14,6 +15,8 @@ const clearCompletedTaskConfirmation = ref(false);
 const taskGroupColor = computed(() => {
   return store.selectedTaskGroup.color;
 });
+
+const priorityColor = todoappService.priorityColor;
 
 
 function addNewTask() {
@@ -137,7 +140,17 @@ onMounted(() => {
       <v-sheet class="my-5">
         <v-sheet v-for="(task, index) in store.selectedTaskGroup.taskList"
                  :class="{ 'text-disabled': task.isDone }"
+                 :color="task.isDone ? 'grey-lighten-3' : 'white'"
                  class="mb-3 py-1 px-2 border d-flex justify-space-between align-center rounded">
+
+          <!-- priority color -->
+          <v-sheet height="2em"
+                   width=".5em"
+                   class="rounded-sm"
+                   :color="priorityColor(task.priority)">
+
+          </v-sheet>
+
 
           <!-- checkbox -->
           <v-checkbox-btn v-model="task.isDone"
@@ -154,7 +167,8 @@ onMounted(() => {
           <!-- see detail btn -->
           <v-btn :icon="`mdi-chevron-${store.selectedTask == task ? 'left' : 'right'}`"
                  flat
-                 :class="store.selectedTask == task ? 'bg-grey' : 'bg-transparent'"
+                 :class="{ 'bg-transparent': store.selectedTask !== task, 'text-white': isDarkColor(store.selectedTaskGroup.color) && store.selectedTask == task }"
+                 :color="store.selectedTask == task ? store.selectedTaskGroup.color : null"
                  @click="store.toggleSelectedTask(task)"
                  density="comfortable"></v-btn>
 

@@ -1,15 +1,15 @@
 import { useTodoappStore } from "@/stores/TodoappStore";
 
-const priorityColor = {
-  urgent: "red",
-  high: "orange",
-  normal: "white",
-  low: "blue",
+const priorityColors = {
+  Urgent: "#ee0000",
+  High: "#ffae00",
+  Normal: "#ffffff",
+  Low: "#4040d6",
 };
 
 export default {
-  getColorByPriority(priority) {
-    return priorityColor[priority.toLowerCase()];
+  priorityColor(priority) {
+    return priorityColors[priority];
   },
 
   getTaskGroupIndex(taskGroupToFind) {
