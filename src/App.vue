@@ -10,7 +10,6 @@ import TaskDetail from '@/components/todoapp/TaskDetail.vue';
 import ModalDeleteTaskGroup from '@/components/todoapp/ModalDeleteTaskGroup.vue';
 
 
-
 import { useTodoappStore } from '@/stores/TodoappStore';
 
 const store = useTodoappStore();
@@ -31,41 +30,41 @@ onMounted(() => {
 </script>
 
 <template>
-  <TodoappSidebar />
+  <v-app>
+    <v-sheet style="min-height: 100%;"
+             :color="backgroundColor"
+             :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
 
+      <TodoappSidebar />
+      <v-main>
+        <v-expand-transition>
 
-  <v-sheet :class="`h-100`"
-           :color="backgroundColor"
-           :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
-    <!-- <v-main> -->
+          <v-row class="pa-10"
+                 v-if="store.isViewingTaskGroup">
+            <!-- selected taskgroup view -->
+            <v-col cols="6">
+              <v-scroll-x-transition>
+                <TaskList v-if="store.selectedTaskGroup" />
+              </v-scroll-x-transition>
+            </v-col>
 
-    <v-expand-transition>
-      <v-row class="pa-10"
-             v-if="store.isViewingTaskGroup">
+            <!-- selected task detail -->
+            <v-col>
+              <v-slide-x-transition>
+                <TaskDetail v-if="store.selectedTask" />
+              </v-slide-x-transition>
+            </v-col>
+          </v-row>
+        </v-expand-transition>
 
-        <!-- selected taskgroup view -->
-        <v-col cols="6">
-          <v-scroll-x-transition>
-            <TaskList v-if="store.selectedTaskGroup" />
-          </v-scroll-x-transition>
-        </v-col>
+        <v-expand-transition>
+          <TaskGroupSelect v-if="store.isViewingTaskGroup == false" />
+        </v-expand-transition>
+      </v-main>
 
-        <!-- selected task detail -->
-        <v-col>
-          <v-slide-x-transition>
-            <TaskDetail v-if="store.selectedTask" />
-          </v-slide-x-transition>
-        </v-col>
-      </v-row>
-    </v-expand-transition>
+    </v-sheet>
 
-    <v-expand-transition>
-      <TaskGroupSelect v-if="store.isViewingTaskGroup == false" />
-    </v-expand-transition>
+    <ModalDeleteTaskGroup v-model="store.showDeleteDialog" />
 
-    <!-- </v-main> -->
-  </v-sheet>
-
-
-  <ModalDeleteTaskGroup v-model="store.showDeleteDialog" />
+  </v-app>
 </template>

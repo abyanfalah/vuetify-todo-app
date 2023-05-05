@@ -12,7 +12,7 @@ function hey() {
 </script>
 
 <template>
-  <v-sheet style="min-height: 100%;"
+  <v-sheet style="min-height: 100vh;"
            class="d-flex flex-column justify-center align-center">
 
     <!-- hello to user -->

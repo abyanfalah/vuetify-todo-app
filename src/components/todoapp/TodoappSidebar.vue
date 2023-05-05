@@ -31,6 +31,7 @@ function getSidebarNavStyle(taskGroup) {
   <v-navigation-drawer scrollable="false"
                        v-if="store.isViewingTaskGroup"
                        floating>
+
     <v-list>
       <v-list-item class="ms-1"
                    prepend-icon="mdi-list-box"
