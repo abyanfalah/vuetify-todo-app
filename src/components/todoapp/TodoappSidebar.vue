@@ -11,6 +11,8 @@ const isSelected = computed((taskgroup) => {
 
 // TODO: delete this function later
 function emptyLocalstorage() {
+  if (!confirm('Are you sure?')) { return; }
+
   localStorage.removeItem('todoapp');
   window.location.reload();
 }
@@ -44,6 +46,8 @@ function getSidebarNavStyle(taskGroup) {
 
     <v-list>
       <v-list-subheader>Task groups</v-list-subheader>
+
+      <!-- taskgroups btn -->
       <v-list-item v-for="(taskGroup, index) in store.taskGroupList"
                    @click="store.toggleSelectedTaskGroup(taskGroup)"
                    prepend-icon="mdi-format-list-checkbox"
@@ -56,21 +60,21 @@ function getSidebarNavStyle(taskGroup) {
                 class="text-capitalize text-truncate">{{ taskGroup.name.length > 0 ? taskGroup.name : `Unnamed group ${++index}` }}</span>
         </template>
       </v-list-item>
+
+      <!-- utlity buttons -->
+      <v-list-item class="border justify-center mb-2 mx-3 rounded"
+                   @click="store.newTaskGroup">
+        <v-icon icon="mdi-plus"></v-icon>
+      </v-list-item>
+
+      <v-list-item class="border justify-center bg-red mb-2 mx-3 rounded"
+                   prepend-icon="mdi-delete"
+                   title="Empty localstorage"
+                   @click="emptyLocalstorage">
+      </v-list-item>
     </v-list>
 
-    <v-btn prepend-icon="mdi-plus"
-           color="black"
-           class="ms-5 my-3"
-           variant="outlined"
-           @click="store.newTaskGroup">new task group
-    </v-btn>
 
-    <v-btn prepend-icon="mdi-delete"
-           color="red"
-           class="ms-5 my-3 "
-           @click="emptyLocalstorage">localstorage
-
-    </v-btn>
   </v-navigation-drawer>
 </template>
 
