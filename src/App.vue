@@ -28,6 +28,15 @@ onMounted(() => {
   previousBackgroundColor = store.selectedTaskGroup ? store.selectedTaskGroup.color : 'grey';
 });
 
+watch(() => [store.isViewingTaskGroup, store.selectedTaskGroup, store.selectedTask, store.isViewingTaskGroupSelector], () => {
+  console.clear();
+  console.log('view taskgroup: ', store.isViewingTaskGroup);
+  // console.log('selected taskgroup: ', store.selectedTaskGroup);
+  // console.log('selected task: ', store.selectedTask);
+  console.log('view home: ', store.isViewingTaskGroupSelector);
+
+})
+
 </script>
 
 <template>
@@ -36,13 +45,17 @@ onMounted(() => {
              :color="backgroundColor"
              :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
 
-      <TodoappSidebar />
       <v-main>
+        <!-- <v-scroll-y-transition> -->
+        <!-- home page -->
+        <TaskGroupSelect v-if="store.isViewingTaskGroupSelector" />
 
-        <v-expand-transition>
-
+        <!-- taskgroupView container -->
+        <div v-else>
+          <TodoappSidebar />
           <v-row class="pa-5 ps-6 pb-2 mb-0"
                  v-if="store.isViewingTaskGroup">
+
             <!-- selected taskgroup view -->
             <v-col cols="6">
               <v-scroll-x-transition>
@@ -57,11 +70,12 @@ onMounted(() => {
               </v-slide-x-transition>
             </v-col>
           </v-row>
-        </v-expand-transition>
+        </div>
+        <!-- </v-scroll-y-transition> -->
 
-        <v-scroll-y-transition>
-          <TaskGroupSelect v-if="store.isViewingTaskGroupSelector" />
-        </v-scroll-y-transition>
+
+
+
       </v-main>
 
     </v-sheet>

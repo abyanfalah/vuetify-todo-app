@@ -53,6 +53,9 @@ export const useTodoappStore = defineStore("todoapp", () => {
   }
 
   function toggleSelectedTaskGroup(taskGroup) {
+    console.clear();
+    console.log("toggling");
+
     if (selectedTaskGroup.value === null) {
       selectedTaskGroup.value = taskGroup;
       isViewingTaskGroupSelector.value = false;
@@ -62,7 +65,6 @@ export const useTodoappStore = defineStore("todoapp", () => {
 
     if (taskGroup == selectedTaskGroup.value) {
       selectedTaskGroup.value = null;
-      setTimeout(() => (isViewingTaskGroup.value = false), 200);
       setTimeout(() => {
         isViewingTaskGroup.value = false;
         isViewingTaskGroupSelector.value = true;
