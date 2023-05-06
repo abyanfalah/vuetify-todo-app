@@ -6,18 +6,19 @@ import getBrightorDarkTextColor from '@/services/getBrightorDarkTextColor';
 const store = useTodoappStore();
 
 function hey() {
-  alert("hey");
+  alert("button merah ditekan!");
 }
 
 </script>
 
 <template>
   <v-sheet style="min-height: 100vh;"
+           color="blue"
            class="d-flex flex-column justify-center align-center">
 
     <!-- hello to user -->
-    <v-sheet color=""
-             class="d-flex flex-column justify-center align-center ">
+    <v-sheet color="transparent"
+             class="d-flex flex-column justify-center align-center mb-10">
       <p class="text-h4">
         Hi
       </p>
@@ -33,7 +34,8 @@ function hey() {
 
     <!-- task group list button -->
     <v-sheet class="d-flex justify-center align-center flex-wrap align-content-space-between"
-             max-width="80%">
+             max-width="80%"
+             color="transparent">
 
 
       <!-- taskgroup button -->
@@ -47,32 +49,30 @@ function hey() {
               :color="taskGroup.color"
               height="150px">
 
-        <!-- taskgroup option -->
+        <!-- taskgroup option container -->
         <v-sheet class="align-self-start d-flex justify-end"
                  position="absolute"
-                 location="bottom"
+                 location="top"
                  width="100%"
-                 style="z-index: 0;"
-                 color="transparent">
-          <v-btn icon="mdi-eye"
-                 variant="plain"></v-btn>
-
-          <!-- <v-btn icon="mdi-palette"
-                 variant="plain"></v-btn> -->
-
-
+                 color="transparent"
+                 style="z-index: 9;">
 
           <v-btn icon="mdi-dots-vertical"
-                 variant="plain"
+                 variant="elevated"
+                 color="red"
                  @click="hey()"></v-btn>
+
         </v-sheet>
-        {{ taskGroup.name }}
+        <p>
+          {{ taskGroup.name }}
+        </p>
       </v-card>
 
       <!-- new taskgroup button -->
       <v-card role="button"
               class="mx-3 mb-6  d-flex justify-center flex-column align-center elevation-0 border"
               width="150px"
+              color="white"
               @click="store.newTaskGroup"
               height="150px">
         <v-icon icon="mdi-plus"
