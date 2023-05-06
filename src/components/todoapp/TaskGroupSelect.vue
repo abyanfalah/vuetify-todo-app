@@ -25,7 +25,9 @@ function hey() {
              class="text-h3"
              style="outline: none; text-align: center;"
              v-model="store.username"
-             placeholder="Wholesome dude">
+             placeholder="[Wholesome anon]">
+      <small v-if="!store.username"
+             class="text-disabled">Your name here ^</small>
       <p class="my-3">Let's get them tasks done!</p>
     </v-sheet>
 
