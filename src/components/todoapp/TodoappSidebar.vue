@@ -32,13 +32,13 @@ function getSidebarNavStyle(taskGroup) {
 <template>
   <v-scroll-x-transition>
 
-    <v-navigation-drawer color=" transparent"
+    <v-navigation-drawer color="transparent"
                          class="pa-5 pe-0"
                          width="300"
                          floating>
 
-      <v-sheet min-height="100%"
-               class="rounded px-2 ele">
+      <v-sheet min-height="100vh"
+               class="rounded px-2">
         <v-list>
           <!-- Logo -->
           <v-list-item class="ms-1"
