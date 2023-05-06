@@ -30,49 +30,59 @@ function getSidebarNavStyle(taskGroup) {
 </script>
 
 <template>
-  <v-navigation-drawer scrollable="false"
-                       v-if="store.isViewingTaskGroup"
+  <v-navigation-drawer v-model="store.isViewingTaskGroup"
+                       color="transparent"
+                       class="pa-5 pe-0"
+                       width="300"
                        floating>
 
-    <v-list>
-      <v-list-item class="ms-1"
-                   prepend-icon="mdi-list-box"
-                   size="x-large"
-                   title="Todo app"
-                   subtitle="Your daily helper" />
-    </v-list>
+    <v-sheet min-height="100%"
+             class="rounded px-2 ele">
+      <v-list>
+        <!-- Logo -->
+        <v-list-item class="ms-1"
+                     prepend-icon="mdi-list-box"
+                     size="x-large"
+                     title="Todo app"
+                     subtitle="Don't be lazy" />
 
-    <v-divider></v-divider>
+        <v-divider class="mt-1 mx-3"></v-divider>
 
-    <v-list>
-      <v-list-subheader>Task groups</v-list-subheader>
 
-      <!-- taskgroups btn -->
-      <v-list-item v-for="(taskGroup, index) in store.taskGroupList"
-                   @click="store.toggleSelectedTaskGroup(taskGroup)"
-                   prepend-icon="mdi-format-list-checkbox"
-                   :style="getSidebarNavStyle(taskGroup)"
-                   class="rounded mb-2 mx-3"
-                   :class="{ 'me-0 rounded-e-0': store.selectedTaskGroup == taskGroup }">
+        <v-list-subheader>Task groups</v-list-subheader>
 
-        <template v-slot:title>
-          <span
-                class="text-capitalize text-truncate">{{ taskGroup.name.length > 0 ? taskGroup.name : `Unnamed group ${++index}` }}</span>
-        </template>
-      </v-list-item>
+        <!-- taskgroups btn -->
+        <v-list-item v-for="(taskGroup, index) in store.taskGroupList"
+                     @click="store.toggleSelectedTaskGroup(taskGroup)"
+                     prepend-icon="mdi-format-list-checkbox"
+                     :style="getSidebarNavStyle(taskGroup)"
+                     class="rounded mb-2 mx-3">
 
-      <!-- utlity buttons -->
-      <v-list-item class="border justify-center mb-2 mx-3 rounded"
-                   @click="store.newTaskGroup">
-        <v-icon icon="mdi-plus"></v-icon>
-      </v-list-item>
+          <template v-slot:title>
+            <span
+                  class="text-capitalize text-truncate">{{ taskGroup.name.length > 0 ? taskGroup.name : `Unnamed group ${++index}` }}</span>
+          </template>
+        </v-list-item>
 
-      <v-list-item class="border justify-center bg-red mb-2 mx-3 rounded"
-                   prepend-icon="mdi-delete"
-                   title="Empty localstorage"
-                   @click="emptyLocalstorage">
-      </v-list-item>
-    </v-list>
+        <!-- new taskgroup button -->
+        <v-list-item class="border justify-center mb-2 mx-3 rounded"
+                     @click="store.newTaskGroup">
+          <v-icon icon="mdi-plus"></v-icon>
+        </v-list-item>
+
+
+        <v-divider class="my-3 mx-3"></v-divider>
+
+        <!-- tempy localstorage button -->
+        <v-list-item title="Empty localstorage"
+                     class="border justify-center bg-red mb-2 mx-3 rounded"
+                     prepend-icon="mdi-delete"
+                     @click="emptyLocalstorage">
+        </v-list-item>
+      </v-list>
+    </v-sheet>
+
+
 
 
   </v-navigation-drawer>

@@ -3,7 +3,7 @@ import { useTodoappStore } from "@/stores/TodoappStore";
 const priorityColors = {
   Urgent: "#ee0000",
   High: "#ffae00",
-  Normal: "#ffffff",
+  Normal: "#ffffff00",
   Low: "#4040d6",
 };
 

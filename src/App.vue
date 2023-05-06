@@ -27,19 +27,24 @@ onMounted(() => {
   if (store.selectedTaskGroup) { store.isViewingTaskGroup = true; }
   previousBackgroundColor = store.selectedTaskGroup ? store.selectedTaskGroup.color : 'grey';
 });
+
+watch(() => store.isViewingTaskGroup, (newVal) => {
+  alert(`isViewingTaskGroup: ${newVal}`);
+});
 </script>
 
 <template>
   <v-app>
-    <v-sheet style="min-height: 100%;"
+    <v-sheet style="min-height: 100vh;"
              :color="backgroundColor"
              :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
 
       <TodoappSidebar />
       <v-main>
+
         <v-expand-transition>
 
-          <v-row class="pa-10"
+          <v-row class="pa-5 ps-6 pb-2 mb-0"
                  v-if="store.isViewingTaskGroup">
             <!-- selected taskgroup view -->
             <v-col cols="6">
@@ -58,7 +63,7 @@ onMounted(() => {
         </v-expand-transition>
 
         <v-expand-transition>
-          <TaskGroupSelect v-if="store.isViewingTaskGroup == false" />
+          <TaskGroupSelect v-if="store.isViewingTaskGroupSelector" />
         </v-expand-transition>
       </v-main>
 
