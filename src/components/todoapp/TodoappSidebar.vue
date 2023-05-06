@@ -37,7 +37,7 @@ function getSidebarNavStyle(taskGroup) {
                          width="300"
                          floating>
 
-      <v-sheet min-height="100vh"
+      <v-sheet height="100%"
                class="rounded px-2">
         <v-list>
           <!-- Logo -->
