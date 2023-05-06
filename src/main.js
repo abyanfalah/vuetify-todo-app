@@ -16,5 +16,5 @@ import { registerPlugins } from "@/plugins";
 const app = createApp(App);
 
 registerPlugins(app);
-document.title = "Abyanf's sandbox";
+// document.title = "Todo list";
 app.mount("#app");
