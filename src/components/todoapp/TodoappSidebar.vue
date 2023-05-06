@@ -32,8 +32,7 @@ function getSidebarNavStyle(taskGroup) {
 <template>
   <v-scroll-x-transition>
 
-    <v-navigation-drawer v-if="store.isViewingTaskGroup"
-                         color="transparent"
+    <v-navigation-drawer color=" transparent"
                          class="pa-5 pe-0"
                          width="300"
                          floating>

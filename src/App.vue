@@ -48,7 +48,7 @@ watch(() => [store.isViewingTaskGroup, store.selectedTaskGroup, store.selectedTa
       <v-main>
         <!-- <v-scroll-y-transition> -->
         <!-- home page -->
-        <TaskGroupSelect v-if="store.isViewingTaskGroupSelector" />
+        <TaskGroupSelect v-if="!store.isViewingTaskGroup" />
 
         <!-- taskgroupView container -->
         <div v-else>
