@@ -142,6 +142,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
       taskGroupList: taskGroupList.value,
       selectedTaskGroup: selectedTaskGroup.value,
       selectedTask: selectedTask.value,
+      username: username.value,
     };
   });
 
@@ -157,6 +158,8 @@ export const useTodoappStore = defineStore("todoapp", () => {
   function restoreStates() {
     const storedState = JSON.parse(localStorage.getItem("todoapp"));
     if (storedState == null) return console.log("no storedState for todoapp");
+
+    username.value = storedState.username;
 
     taskGroupList.value = storedState.taskGroupList ?? [];
 
