@@ -28,9 +28,6 @@ onMounted(() => {
   previousBackgroundColor = store.selectedTaskGroup ? store.selectedTaskGroup.color : 'grey';
 });
 
-watch(() => store.isViewingTaskGroup, (newVal) => {
-  alert(`isViewingTaskGroup: ${newVal}`);
-});
 </script>
 
 <template>
@@ -62,9 +59,9 @@ watch(() => store.isViewingTaskGroup, (newVal) => {
           </v-row>
         </v-expand-transition>
 
-        <v-expand-transition>
+        <v-scroll-y-transition>
           <TaskGroupSelect v-if="store.isViewingTaskGroupSelector" />
-        </v-expand-transition>
+        </v-scroll-y-transition>
       </v-main>
 
     </v-sheet>

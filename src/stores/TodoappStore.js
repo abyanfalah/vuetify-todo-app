@@ -10,6 +10,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
   const taskGroupList = ref([]);
   const selectedTaskGroup = ref(null);
   const isViewingTaskGroup = ref(false);
+  const isViewingTaskGroupSelector = ref(true);
   const selectedTask = ref(null);
 
   const showDeleteDialog = ref(false);
@@ -54,6 +55,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
   function toggleSelectedTaskGroup(taskGroup) {
     if (selectedTaskGroup.value === null) {
       selectedTaskGroup.value = taskGroup;
+      isViewingTaskGroupSelector.value = false;
       isViewingTaskGroup.value = true;
       return;
     }
@@ -61,7 +63,10 @@ export const useTodoappStore = defineStore("todoapp", () => {
     if (taskGroup == selectedTaskGroup.value) {
       selectedTaskGroup.value = null;
       setTimeout(() => (isViewingTaskGroup.value = false), 200);
-
+      setTimeout(() => {
+        isViewingTaskGroup.value = false;
+        isViewingTaskGroupSelector.value = true;
+      }, 200);
       return;
     }
 
@@ -187,9 +192,10 @@ export const useTodoappStore = defineStore("todoapp", () => {
     username,
     taskGroupList,
     selectedTaskGroup,
-    isViewingTaskGroup,
     selectedTask,
     showDeleteDialog,
+    isViewingTaskGroup,
+    isViewingTaskGroupSelector,
 
     // taskgroup functions
     newTaskGroup,
