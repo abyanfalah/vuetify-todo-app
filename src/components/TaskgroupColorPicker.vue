@@ -3,6 +3,8 @@ import { useTodoappStore } from '@/stores/TodoappStore';
 import { ref, watch } from 'vue';
 
 const emits = defineEmits(['closeColorPicker']);
+const props = defineProps(['elevation']);
+
 
 const store = useTodoappStore();
 
@@ -10,7 +12,7 @@ const store = useTodoappStore();
 </script>
 
 <template>
-  <v-card elevation="5"
+  <v-card :elevation="elevation ?? 5"
           max-width="400px"
           class="mt-3 rounded mx-auto">
     <v-toolbar class="d-flex justify-space-between"

@@ -3,11 +3,11 @@ import { computed } from '@vue/reactivity';
 import { onMounted, ref, watch } from 'vue';
 import getBrightorDarkTextColor from '@/services/getBrightorDarkTextColor';
 
-import TodoappSidebar from '@/components/todoapp/TodoappSidebar.vue';
-import TaskGroupSelect from '@/components/todoapp/TaskGroupSelect.vue';
-import TaskList from '@/components/todoapp/TaskList.vue';
-import TaskDetail from '@/components/todoapp/TaskDetail.vue';
-import ModalDeleteTaskGroup from '@/components/todoapp/ModalDeleteTaskGroup.vue';
+import TodoappSidebar from '@/components/TodoappSidebar.vue';
+import TaskGroupSelect from '@/components/TaskGroupSelect.vue';
+import TaskList from '@/components/TaskList.vue';
+import TaskDetail from '@/components/TaskDetail.vue';
+import ModalDeleteTaskGroup from '@/components/ModalDeleteTaskGroup.vue';
 
 
 import { useTodoappStore } from '@/stores/TodoappStore';
