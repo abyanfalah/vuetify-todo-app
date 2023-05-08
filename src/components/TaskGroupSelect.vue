@@ -4,10 +4,29 @@ import { ref } from 'vue';
 import getBrightorDarkTextColor from '@/services/getBrightorDarkTextColor';
 
 import TaskgroupColorPicker from './TaskgroupColorPicker.vue';
+import TaskgroupRenameInput from './TaskgroupRenameInput.vue';
 
 const store = useTodoappStore();
 
 const showColorPicker = ref(false);
+const showRenameInput = ref(false);
+
+function handleShowMenu(taskgroupToManipulate) {
+  store.selectedTaskGroup = taskgroupToManipulate;
+  showColorPicker.value = false;
+  showRenameInput.value = false;
+}
+
+function handleRename() {
+  if (!showRenameInput.value) {
+    showRenameInput.value = true;
+    // fokus ke inputan
+    return;
+  }
+
+  showRenameInput.value = false;
+}
+const renameInput = ref();
 
 function hey() {
   alert("button merah ditekan!");
@@ -46,7 +65,7 @@ function hey() {
       <!-- taskgroup button -->
       <v-card v-for="(taskGroup, index) in store.taskGroupList"
               role="button"
-              class="mx-3 mb-6 d-flex justify-center align-center"
+              class="mx-3 mb-6 d-flex justify-center align-center pa-3"
               width="150px"
               elevation="5"
               @click="store.toggleSelectedTaskGroup(taskGroup)"
@@ -64,11 +83,11 @@ function hey() {
 
           <v-btn icon="mdi-dots-vertical"
                  variant="flat"
-                 density="dense"
+                 density="comfortable"
                  :id="`menu-activator-${index}`"
                  color="transparent"
-                 class="mt-1"
-                 @click.stop="store.selectedTaskGroup = taskGroup">
+                 class=""
+                 @click.stop="handleShowMenu(taskGroup)">
           </v-btn>
 
           <v-menu :activator="`#menu-activator-${index}`"
@@ -78,8 +97,9 @@ function hey() {
             <v-list class="px-3">
 
 
+              <!-- change color -->
               <v-list-item title="Change color"
-                           class="rounded"
+                           class="rounded my-1"
                            @click="showColorPicker = !showColorPicker"
                            :active="showColorPicker"
                            prepend-icon="mdi-palette"></v-list-item>
@@ -89,14 +109,27 @@ function hey() {
                 <TaskgroupColorPicker v-if="showColorPicker"
                                       elevation="0"
                                       class=""
-                                      @close-color-picker="showColorPicker = false" />
+                                      width="250"
+                                      @close-color-picker="
+                                        showColorPicker = false" />
               </v-expand-transition>
 
+              <!-- rename -->
               <v-list-item title="Rename this taskgroup"
-                           class="rounded"
-                           @click="hey()"
+                           class="rounded my-3"
+                           @click="handleRename"
+                           :active="showRenameInput"
                            prepend-icon="mdi-pencil"></v-list-item>
-
+              <v-expand-transition>
+                <v-text-field v-if="showRenameInput"
+                              density="compact"
+                              label="Taskgroup name"
+                              ref="renameInput"
+                              variant="outlined"
+                              :color="store.selectedTaskGroup.color"
+                              v-model="store.selectedTaskGroup.name"
+                              :hide-details="true"></v-text-field>
+              </v-expand-transition>
 
 
               <v-divider class="my-3"></v-divider>
@@ -111,7 +144,7 @@ function hey() {
 
 
         </v-sheet>
-        <p>
+        <p style="max-width: 100%;">
           {{ taskGroup.name }}
         </p>
       </v-card>
