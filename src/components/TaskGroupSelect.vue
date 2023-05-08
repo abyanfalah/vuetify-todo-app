@@ -99,7 +99,7 @@ function hey() {
 
               <!-- change color -->
               <v-list-item title="Change color"
-                           class="rounded my-1"
+                           class="rounded"
                            @click="showColorPicker = !showColorPicker"
                            :active="showColorPicker"
                            prepend-icon="mdi-palette"></v-list-item>
