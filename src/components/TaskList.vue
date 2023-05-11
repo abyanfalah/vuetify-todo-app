@@ -112,6 +112,7 @@ onMounted(() => {
       <!-- color picker & clear confirmation -->
       <v-expand-transition>
         <TaskgroupColorPickerVue class="mb-3"
+                                 width="100%"
                                  @close-color-picker="showColorPicker = false"
                                  v-if="showColorPicker" />
 
@@ -122,10 +123,12 @@ onMounted(() => {
           </span>
 
           <div class="d-flex justify-center mt-3">
+
             <v-btn color="red"
                    size="small"
                    @click="{ store.clearCompletedTask(); clearCompletedTaskConfirmation = false }"
                    variant="outlined">Yes</v-btn>
+
             <v-btn color="primary"
                    variant="tonal"
                    class="ms-2"
