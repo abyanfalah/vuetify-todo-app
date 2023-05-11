@@ -84,3 +84,9 @@ watch(() => [store.isViewingTaskGroup, store.selectedTaskGroup, store.selectedTa
 
   </v-app>
 </template>
+
+<style lang="scss">
+*::-webkit-scrollbar {
+  display: none;
+}
+</style>
