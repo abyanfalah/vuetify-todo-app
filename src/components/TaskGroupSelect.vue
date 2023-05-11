@@ -4,7 +4,6 @@ import { ref } from 'vue';
 import getBrightorDarkTextColor from '@/services/getBrightorDarkTextColor';
 
 import TaskgroupColorPicker from './TaskgroupColorPicker.vue';
-import TaskgroupRenameInput from './TaskgroupRenameInput.vue';
 
 const store = useTodoappStore();
 
