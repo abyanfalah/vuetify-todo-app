@@ -17,7 +17,7 @@ const taskGroupColor = computed(() => {
 });
 
 const priorityColor = todoappService.priorityColor;
-
+const dueTime = todoappService.getHumanDueTime;
 
 function addNewTask() {
   if (!taskInput.value) return;
@@ -30,12 +30,13 @@ function addNewTask() {
     notes: null,
     addedAt: Date.now(),
     doneAt: null,
+    deadline: null,
+    deadlineDate: null,
   };
 
   store.addTask(newTask);
   taskInput.value = '';
 }
-
 
 const taskGroup = ref({});
 onMounted(() => {
@@ -141,39 +142,54 @@ onMounted(() => {
 
       <!-- task items -->
       <v-sheet class="my-5">
+
+
+        <!-- task list -->
         <v-sheet v-for="(task, index) in store.selectedTaskGroup.taskList"
                  :class="{ 'text-disabled': task.isDone }"
                  :color="task.isDone ? 'grey-lighten-3' : 'white'"
-                 class="mb-3 py-1 px-2 border d-flex justify-space-between align-center rounded">
+                 class="mb-3 py-1 px-2 border d-flex align-space-between flex-column rounded">
 
-          <!-- priority color -->
-          <v-sheet height="2em"
-                   width=".5em"
-                   class="rounded-sm"
-                   :color="priorityColor(task.priority)">
+          <!-- task info container -->
+          <div class="d-flex justify-space-between align-center flex-row">
 
-          </v-sheet>
+            <!-- priority color -->
+            <v-sheet height="2em"
+                     width=".5em"
+                     class="rounded-sm"
+                     :color="priorityColor(task.priority)">
+
+            </v-sheet>
 
 
-          <!-- checkbox -->
-          <v-checkbox-btn v-model="task.isDone"
-                          :color="taskGroupColor"
-                          @click="store.toggleTaskDone(task)"></v-checkbox-btn>
+            <!-- checkbox -->
+            <v-checkbox-btn v-model="task.isDone"
+                            :color="taskGroupColor"
+                            @click="store.toggleTaskDone(task)"></v-checkbox-btn>
 
-          <!-- task text -->
-          <input type="text"
-                 @keydown.enter="$event.target.blur()"
-                 v-model="task.task"
-                 class="w-100"
-                 :class="task.isDone ? 'text-disabled text-decoration-line-through' : ''">
+            <!-- task text -->
+            <input type="text"
+                   @keydown.enter="$event.target.blur()"
+                   v-model="task.task"
+                   class="w-100"
+                   :class="task.isDone ? 'text-disabled text-decoration-line-through' : ''">
 
-          <!-- see detail btn -->
-          <v-btn :icon="`mdi-chevron-${store.selectedTask == task ? 'left' : 'right'}`"
-                 flat
-                 :class="{ 'bg-transparent': store.selectedTask !== task, 'text-white': isDarkColor(store.selectedTaskGroup.color) && store.selectedTask == task }"
-                 :color="store.selectedTask == task ? store.selectedTaskGroup.color : null"
-                 @click="store.toggleSelectedTask(task)"
-                 density="comfortable"></v-btn>
+            <!-- see detail btn -->
+            <v-btn :icon="`mdi-chevron-${store.selectedTask == task ? 'left' : 'right'}`"
+                   flat
+                   :class="{ 'bg-transparent': store.selectedTask !== task, 'text-white': isDarkColor(store.selectedTaskGroup.color) && store.selectedTask == task }"
+                   :color="store.selectedTask == task ? store.selectedTaskGroup.color : null"
+                   @click="store.toggleSelectedTask(task)"
+                   density="comfortable"></v-btn>
+          </div>
+
+          <!-- due date info -->
+          <v-expand-transition>
+            <div v-if="task.deadline"
+                 class="text-end">
+              <p class="text-caption">Due: {{ dueTime(task.deadline) }}</p>
+            </div>
+          </v-expand-transition>
 
         </v-sheet>
 
@@ -191,6 +207,7 @@ onMounted(() => {
                       :color="taskGroupColor"
                       :focused="store.selectedTaskGroup.name != 'New taskgroup'"
                       variant="outlined"></v-text-field>
+
       </v-sheet>
     </v-card-item>
   </v-card>

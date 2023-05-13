@@ -12,6 +12,7 @@
 		"capitalize": "^2.0.4",
 		"is-dark-color": "^1.2.0",
 		"lighten-darken-color": "^1.0.0",
+		"moment": "^2.29.4",
 		"pinia": "^2.0.33",
 		"roboto-fontface": "*",
 		"sass": "^1.62.1",
