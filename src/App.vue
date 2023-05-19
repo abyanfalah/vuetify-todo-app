@@ -19,6 +19,7 @@ const backgroundColor = computed(() => {
   if (!store.selectedTaskGroup) return previousBackgroundColor;
 
   previousBackgroundColor = store.selectedTaskGroup.color;
+  store.previousBackgroundColor = previousBackgroundColor;
   return previousBackgroundColor;
 });
 

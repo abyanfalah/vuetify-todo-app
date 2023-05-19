@@ -36,7 +36,7 @@ function hey() {
 
 <template>
   <v-sheet style="min-height: 100vh;"
-           color="blue"
+           color="#e9edc9"
            class="d-flex flex-column justify-center align-center">
 
     <!-- hello to user -->

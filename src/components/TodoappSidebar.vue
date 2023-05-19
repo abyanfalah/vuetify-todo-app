@@ -54,16 +54,16 @@ function getSidebarNavStyle(taskGroup) {
 
         </v-list>
 
-        <!-- taskgroup list fixed container -->
-        <v-sheet class="taskgroup-list-container rounded mx-3"
-                 color="">
+        <!-- taskgroup list scrollable fixed container -->
+        <v-sheet class="taskgroup-list-container rounded mx-3 pa-1"
+                 :border="true">
           <v-list>
 
             <!-- taskgroups btn -->
             <v-list-item v-for="(taskGroup, index) in store.taskGroupList"
                          @click="store.toggleSelectedTaskGroup(taskGroup)"
                          :style="getSidebarNavStyle(taskGroup)"
-                         :class="{ 'selected-taskgroup': store.selectedTaskGroup.id === taskGroup.id }"
+                         :class="{ 'selected-taskgroup': store.selectedTaskGroup.id === taskGroup.id && store.isViewingTaskGroup }"
                          class="rounded mb-2">
               <div class="d-flex flex-row justify-start">
                 <!-- selected taskgroup mark -->

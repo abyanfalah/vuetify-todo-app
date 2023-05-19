@@ -15,6 +15,8 @@ export const useTodoappStore = defineStore("todoapp", () => {
 
   const showDeleteDialog = ref(false);
 
+  const previousBackgroundColor = ref(null);
+
   const currentTaskList = computed(() => {
     if (!selectedTaskGroup.value) return null;
 
@@ -53,8 +55,6 @@ export const useTodoappStore = defineStore("todoapp", () => {
   }
 
   function toggleSelectedTaskGroup(taskGroup) {
-    console.clear();
-    console.log("toggling");
 
     if (selectedTaskGroup.value === null) {
       selectedTaskGroup.value = taskGroup;
@@ -193,6 +193,9 @@ export const useTodoappStore = defineStore("todoapp", () => {
     selectedTask.value = selectedTaskGroup.value.taskList[selectedTaskIndex];
   }
 
+
+
+
   // +=+=+=+=+=+=+=+=+=+=+=+= return the options (?)
   return {
     username,
@@ -202,6 +205,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
     showDeleteDialog,
     isViewingTaskGroup,
     isViewingTaskGroupSelector,
+    previousBackgroundColor,
 
     // taskgroup functions
     newTaskGroup,
