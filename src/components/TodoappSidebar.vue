@@ -24,6 +24,8 @@ function getSidebarNavStyle(taskGroup) {
 	return { backgroundColor: taskGroup.color, color: getTextColor(taskGroup) };
 }
 
+
+
 </script>
 
 <template>
