@@ -4,6 +4,8 @@ import todoappService from '@/services/todoappService';
 import TaskgroupColorPickerVue from './TaskgroupColorPicker.vue';
 import { useTodoappStore } from '@/stores/TodoappStore';
 import { isDarkColor } from 'is-dark-color/dist/isDarkColor';
+import moment from 'moment';
+
 
 const store = useTodoappStore();
 const taskInput = ref("");
@@ -35,6 +37,11 @@ function addNewTask() {
 
   store.addTask(newTask);
   taskInput.value = '';
+}
+
+function getDueTime(taskDeadline) {
+  const dueTime = moment(taskDeadline).fromNow();
+  return dueTime;
 }
 
 
@@ -141,40 +148,61 @@ onMounted(() => {
       </v-expand-transition>
 
       <!-- task items -->
-      <v-sheet class="my-5">
+      <v-sheet class="my-5 bg-transparent">
         <v-sheet v-for="(task, index) in store.selectedTaskGroup.taskList"
                  :class="{ 'text-disabled': task.isDone }"
                  :color="task.isDone ? 'grey-lighten-3' : 'white'"
-                 class="mb-3 py-1 px-2 border d-flex justify-space-between align-center rounded">
+                 width="100%"
+                 class=" mb-3 py-1 px-2 border d-flex flex-row   rounded">
 
           <!-- priority color -->
-          <v-sheet height="2em"
-                   width=".5em"
-                   class="rounded-sm"
+          <v-sheet width=".5em"
+                   class="rounded"
                    :color="priorityColor(task.priority)">
 
           </v-sheet>
 
+          <v-sheet width="100%"
+                   class="bg-transparent">
+            <!-- task item container -->
+            <div class="d-flex flex-row justify">
+              <!-- checkbox -->
+              <v-checkbox-btn v-model="task.isDone"
+                              :color="taskGroupColor"
+                              @click="store.toggleTaskDone(task)"></v-checkbox-btn>
 
-          <!-- checkbox -->
-          <v-checkbox-btn v-model="task.isDone"
-                          :color="taskGroupColor"
-                          @click="store.toggleTaskDone(task)"></v-checkbox-btn>
+              <!-- task text -->
+              <input type="text"
+                     @keydown.enter="$event.target.blur()"
+                     v-model="task.task"
+                     class="w-100"
+                     :class="task.isDone ? 'text-disabled text-decoration-line-through' : ''">
 
-          <!-- task text -->
-          <input type="text"
-                 @keydown.enter="$event.target.blur()"
-                 v-model="task.task"
-                 class="w-100"
-                 :class="task.isDone ? 'text-disabled text-decoration-line-through' : ''">
+              <!-- see detail btn -->
+              <v-btn :icon="`mdi-chevron-${store.selectedTask == task ? 'left' : 'right'}`"
+                     flat
+                     :class="{ 'bg-transparent': store.selectedTask !== task, 'text-white': isDarkColor(store.selectedTaskGroup.color) && store.selectedTask == task }"
+                     :color="store.selectedTask == task ? store.selectedTaskGroup.color : null"
+                     @click="store.toggleSelectedTask(task)"
+                     density="comfortable"></v-btn>
+            </div>
 
-          <!-- see detail btn -->
-          <v-btn :icon="`mdi-chevron-${store.selectedTask == task ? 'left' : 'right'}`"
-                 flat
-                 :class="{ 'bg-transparent': store.selectedTask !== task, 'text-white': isDarkColor(store.selectedTaskGroup.color) && store.selectedTask == task }"
-                 :color="store.selectedTask == task ? store.selectedTaskGroup.color : null"
-                 @click="store.toggleSelectedTask(task)"
-                 density="comfortable"></v-btn>
+            <!-- due time container -->
+            <v-expand-transition>
+              <div v-if="task.deadline"
+                   class="d-flex justify-end text-body-2">
+                <span>
+                  <span class="text-grey">Due:</span>
+                  {{ getDueTime(task.deadline) }}
+                </span>
+              </div>
+            </v-expand-transition>
+          </v-sheet>
+
+
+
+
+
 
         </v-sheet>
 

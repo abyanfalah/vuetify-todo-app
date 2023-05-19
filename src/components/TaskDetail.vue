@@ -9,8 +9,10 @@ const showDatePicker = ref(false);
 
 
 function setDeadline(customDeadline) {
-  showDatePicker.value = false;
   const deadlineMode = store.selectedTask.deadlineMode;
+  if (deadlineMode < 2) {
+    showDatePicker.value = false;
+  }
 
   let d = new Date();
 
@@ -47,24 +49,9 @@ function setDeadline(customDeadline) {
 
 }
 
-function setDeadlineTomorrow() {
-  showDatePicker.value = false;
-
-  const d = new Date();
-
-  d.setHours(23);
-  d.setMinutes(59);
-  d.setSeconds(59);
-  d.setMilliseconds(999);
-
-
-}
-
-function setCustomDeadline(customDeadline) {
-
-
-}
-
+onMounted(() => {
+  showDatePicker.value = store.selectedTask.deadlineMode === 2;
+});
 </script>
 
 <template>
@@ -89,7 +76,8 @@ function setCustomDeadline(customDeadline) {
 
       <!-- task due date -->
       <div class="mb-3">
-        <p class="text-disabled ">Deadline</p>
+        <p class="text-grey-darken-1 text-caption">Deadline</p>
+
         <v-btn-toggle v-model="store.selectedTask.deadlineMode"
                       divided
                       density="comfortable"
@@ -100,7 +88,19 @@ function setCustomDeadline(customDeadline) {
           <v-btn @click="showDatePicker = !showDatePicker">
             <v-icon icon="mdi-calendar-month"></v-icon>
           </v-btn>
+
+          <v-scroll-y-transition>
+            <v-btn v-if="store.selectedTask.deadline"
+                   @click="store.selectedTask.deadline = null">
+              <v-icon color="red"
+                      icon="mdi-delete"></v-icon>
+            </v-btn>
+          </v-scroll-y-transition>
         </v-btn-toggle>
+
+
+
+
 
         <!-- datepicker -->
         <v-expand-transition>
