@@ -46,7 +46,6 @@ watch(() => [store.isViewingTaskGroup, store.selectedTaskGroup, store.selectedTa
              :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
 
       <v-main>
-        <!-- <v-scroll-y-transition> -->
         <!-- home page -->
         <TaskGroupSelect v-if="!store.isViewingTaskGroup" />
 
