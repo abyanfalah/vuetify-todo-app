@@ -28,7 +28,7 @@ const deleteTaskConfirmation = ref(false);
                 density="comfortable"
                 :items="['Urgent', 'High', 'Normal', 'Low']"></v-select>
 
-      <!-- task additional nots -->
+      <!-- task additional notes -->
       <v-textarea label="Additional notes"
                   :color="store.currentTaskGroupColor"
                   v-model="store.selectedTask.notes"

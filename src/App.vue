@@ -41,11 +41,10 @@ watch(() => [store.isViewingTaskGroup, store.selectedTaskGroup, store.selectedTa
 
 <template>
   <v-app>
-    <TodoappSidebar />
-    <v-main>
-      <v-sheet style="min-height: 100vh;"
-               :color="backgroundColor"
-               :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
+
+    <v-sheet style="min-height: 100vh;"
+             :color="backgroundColor"
+             :style="{ color: getBrightorDarkTextColor(backgroundColor) }">
 
 
       <v-main>
