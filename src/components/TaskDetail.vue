@@ -91,7 +91,7 @@ onMounted(() => {
 
           <v-scroll-y-transition>
             <v-btn v-if="store.selectedTask.deadline"
-                   @click="store.selectedTask.deadline = null">
+                   @click="{ store.selectedTask.deadline = null; showDatePicker = false }">
               <v-icon color="red"
                       icon="mdi-delete"></v-icon>
             </v-btn>
