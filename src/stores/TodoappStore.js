@@ -10,6 +10,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
   const isViewingTaskGroupSelector = ref(false);
 
   const taskGroupList = ref([]);
+  const currentTaskGroupId = ref(null);
   const selectedTaskGroup = ref(null);
   const selectedTask = ref(null);
 
@@ -75,6 +76,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
 
     isViewingTaskGroup.value = true;
     selectedTaskGroup.value = null;
+    currentTaskGroupId.value = taskGroup.id;
     setTimeout(() => (selectedTaskGroup.value = taskGroup), 100);
   }
 
@@ -220,6 +222,7 @@ export const useTodoappStore = defineStore("todoapp", () => {
     clearCompletedTask,
 
     currentTaskGroupColor,
+    currentTaskGroupId,
     states,
     restoreStates,
   };

@@ -1,6 +1,6 @@
 <script setup>
 import { useTodoappStore } from '@/stores/TodoappStore';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import isDarkColor from 'is-dark-color';
 import getBrightorDarkTextColor from '@/services/getBrightorDarkTextColor';
 
@@ -23,7 +23,6 @@ function getTextColor(taskGroup) {
 function getSidebarNavStyle(taskGroup) {
   return { backgroundColor: taskGroup.color, color: getTextColor(taskGroup) };
 }
-
 
 
 </script>
@@ -63,14 +62,14 @@ function getSidebarNavStyle(taskGroup) {
             <v-list-item v-for="(taskGroup, index) in store.taskGroupList"
                          @click="store.toggleSelectedTaskGroup(taskGroup)"
                          :style="getSidebarNavStyle(taskGroup)"
-                         :class="{ 'selected-taskgroup': store.selectedTaskGroup.id === taskGroup.id && store.isViewingTaskGroup }"
+                         :class="{ 'selected-taskgroup': store.currentTaskGroupId === taskGroup.id && store.isViewingTaskGroup }"
                          class="rounded mb-2">
               <div class="d-flex flex-row justify-start">
                 <!-- selected taskgroup mark -->
                 <v-sheet class="me-2 selected-taskgrou-mark"
                          :color="taskGroup.color"
                          width="0.30em">
-                  <v-sheet v-if="store.selectedTaskGroup.id === taskGroup.id"
+                  <v-sheet v-if="store.currentTaskGroupId === taskGroup.id"
                            class="rounded"
                            :color="getBrightorDarkTextColor(taskGroup.color)"
                            height="100%"
