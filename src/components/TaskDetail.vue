@@ -1,19 +1,67 @@
 <script setup>
 import { useTodoappStore } from '@/stores/TodoappStore';
 import { onMounted, ref } from 'vue';
-
+import moment from 'moment';
 const store = useTodoappStore();
 
 const deleteTaskConfirmation = ref(false);
 const showDatePicker = ref(false);
 
 
-function setDeadlineToday() {
+function setDeadline(customDeadline) {
   showDatePicker.value = false;
+  const deadlineMode = store.selectedTask.deadlineMode;
+
+  let d = new Date();
+
+  d.setHours(23);
+  d.setMinutes(59);
+  d.setSeconds(59);
+  d.setMilliseconds(999);
+
+  if (deadlineMode === 0) {
+    const endOfToday = d.getTime();
+    store.selectedTask.deadline = endOfToday;
+    store.selectedTask.due = d;
+    return;
+  }
+
+  if (deadlineMode === 1) {
+    const tomorrowDate = d.getDate() + 1;
+    d.setDate(tomorrowDate);
+    const endoOfTomorrow = d.getTime();
+    store.selectedTask.deadline = endoOfTomorrow;
+    store.selectedTask.due = d;
+    return;
+  }
+
+  d = new Date(customDeadline);
+  d.setHours(23);
+  d.setMinutes(59);
+  d.setSeconds(59);
+  d.setMilliseconds(999);
+  const endOfCustomDeadline = d.getTime();
+  store.selectedTask.deadline = endOfCustomDeadline;
+
+
+
 }
 
 function setDeadlineTomorrow() {
   showDatePicker.value = false;
+
+  const d = new Date();
+
+  d.setHours(23);
+  d.setMinutes(59);
+  d.setSeconds(59);
+  d.setMilliseconds(999);
+
+
+}
+
+function setCustomDeadline(customDeadline) {
+
 
 }
 
@@ -47,8 +95,8 @@ function setDeadlineTomorrow() {
                       density="comfortable"
                       class="mb-3"
                       variant="outlined">
-          <v-btn @click="setDeadlineToday">Today</v-btn>
-          <v-btn @click="setDeadlineTomorrow">Tomorrow</v-btn>
+          <v-btn @click="setDeadline">Today</v-btn>
+          <v-btn @click="setDeadline">Tomorrow</v-btn>
           <v-btn @click="showDatePicker = !showDatePicker">
             <v-icon icon="mdi-calendar-month"></v-icon>
           </v-btn>
@@ -61,6 +109,7 @@ function setDeadlineTomorrow() {
                          auto-apply
                          :close-on-auto-apply="true"
                          :enable-time-picker="false"
+                         @update:model-value="setDeadline"
                          v-model="store.selectedTask.due"></VueDatePicker>
         </v-expand-transition>
 
