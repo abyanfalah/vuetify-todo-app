@@ -1,28 +1,11 @@
 <script setup>
 import { useTodoappStore } from '@/stores/TodoappStore';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const store = useTodoappStore();
 
 const deleteTaskConfirmation = ref(false);
-const showDatePicker = ref(false);
 
-const deadlineToday = computed(() => {
-  const d = new Date();
-  const deadline = d.setHours(23, 59, 59);
-  return deadline;
-});
-
-const deadlineTomorrow = computed(() => {
-  const d = new Date();
-  const plusOneDay = d.getDate() + 1;
-  d.setHours(23, 59, 59);
-  const deadline = d.setDate(plusOneDay);
-
-  return deadline;
-});
-
-;
 </script>
 
 <template>
@@ -31,8 +14,6 @@ const deadlineTomorrow = computed(() => {
           elevation="10">
     <v-container class="pa-5 pb-0">
       <v-card-title class="pa-0">
-
-        <!-- task name -->
         <v-text-field variant="underlined"
                       :color="store.currentTaskGroupColor"
                       v-model="store.selectedTask.task"
@@ -47,30 +28,7 @@ const deadlineTomorrow = computed(() => {
                 density="comfortable"
                 :items="['Urgent', 'High', 'Normal', 'Low']"></v-select>
 
-      <!-- task due date -->
-      <div>
-        <p class="text-disabled ">Deadline</p>
-        <v-btn-toggle v-model="store.selectedTask.deadline"
-                      divided
-                      class="mb-3"
-                      variant="outlined">
-          <v-btn :value="deadlineToday">Today</v-btn>
-          <v-btn :value="deadlineTomorrow">Tomorrow</v-btn>
-          <v-btn :value="() => null"
-                 @click="showDatePicker = !showDatePicker">
-            <!-- <span>tampil tanggal jika udah milih</span> -->
-          </v-btn>
-        </v-btn-toggle>
-
-        <v-date-picker></v-date-picker>
-      </div>
-
-      {{ deadlineTomorrow }}
-
-      <v-divider></v-divider>
-
-      {{ store.selectedTask }}
-      <!-- task additional notes -->
+      <!-- task additional nots -->
       <v-textarea label="Additional notes"
                   :color="store.currentTaskGroupColor"
                   v-model="store.selectedTask.notes"

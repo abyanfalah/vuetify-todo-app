@@ -1,5 +1,4 @@
 import { useTodoappStore } from "@/stores/TodoappStore";
-import moment from "moment";
 
 const priorityColors = {
   Urgent: "#ee0000",
@@ -20,10 +19,5 @@ export default {
     );
 
     return taskGroupIndex;
-  },
-
-  getHumanDueTime(dueTime) {
-    const d = new Date(dueTime);
-    return moment(d).fromNow();
   },
 };
