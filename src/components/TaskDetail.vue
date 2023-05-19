@@ -5,6 +5,17 @@ import { onMounted, ref } from 'vue';
 const store = useTodoappStore();
 
 const deleteTaskConfirmation = ref(false);
+const showDatePicker = ref(false);
+
+
+function setDeadlineToday() {
+  showDatePicker.value = false;
+}
+
+function setDeadlineTomorrow() {
+  showDatePicker.value = false;
+
+}
 
 </script>
 
@@ -27,6 +38,37 @@ const deleteTaskConfirmation = ref(false);
                 v-model="store.selectedTask.priority"
                 density="comfortable"
                 :items="['Urgent', 'High', 'Normal', 'Low']"></v-select>
+
+      <!-- task due date -->
+      <div class="mb-3">
+        <p class="text-disabled ">Deadline</p>
+        <v-btn-toggle v-model="store.selectedTask.deadlineMode"
+                      divided
+                      density="comfortable"
+                      class="mb-3"
+                      variant="outlined">
+          <v-btn @click="setDeadlineToday">Today</v-btn>
+          <v-btn @click="setDeadlineTomorrow">Tomorrow</v-btn>
+          <v-btn @click="showDatePicker = !showDatePicker">
+            <v-icon icon="mdi-calendar-month"></v-icon>
+          </v-btn>
+        </v-btn-toggle>
+
+        <!-- datepicker -->
+        <v-expand-transition>
+          <VueDatePicker v-if="showDatePicker"
+                         :teleport="true"
+                         auto-apply
+                         :close-on-auto-apply="true"
+                         :enable-time-picker="false"
+                         v-model="store.selectedTask.due"></VueDatePicker>
+        </v-expand-transition>
+
+      </div>
+
+      {{ deadlineTomorrow }}
+
+      <v-divider></v-divider>
 
       <!-- task additional notes -->
       <v-textarea label="Additional notes"

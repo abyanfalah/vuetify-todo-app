@@ -29,11 +29,11 @@ onMounted(() => {
 });
 
 watch(() => [store.isViewingTaskGroup, store.selectedTaskGroup, store.selectedTask, store.isViewingTaskGroupSelector], () => {
-  console.clear();
-  console.log('view taskgroup: ', store.isViewingTaskGroup);
+  // console.clear();
+  // console.log('view taskgroup: ', store.isViewingTaskGroup);
   // console.log('selected taskgroup: ', store.selectedTaskGroup);
   // console.log('selected task: ', store.selectedTask);
-  console.log('view home: ', store.isViewingTaskGroupSelector);
+  // console.log('view home: ', store.isViewingTaskGroupSelector);
 
 })
 

@@ -30,6 +30,7 @@ function addNewTask() {
     notes: null,
     addedAt: Date.now(),
     doneAt: null,
+    deadlineMode: null,
   };
 
   store.addTask(newTask);
@@ -194,6 +195,8 @@ onMounted(() => {
       </v-sheet>
     </v-card-item>
   </v-card>
+
+  <p class="my-3">{{ store.selectedTask }}</p>
 </template>
 
 <style scoped>
