@@ -223,8 +223,6 @@ onMounted(() => {
       </v-sheet>
     </v-card-item>
   </v-card>
-
-  <p class="my-3">{{ store.selectedTask }}</p>
 </template>
 
 <style scoped>
